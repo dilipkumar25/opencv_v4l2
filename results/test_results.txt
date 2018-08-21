@@ -1,0 +1,105 @@
+---------
+Variant 1
+---------
+e-CAM130_CUTX1 - TX2 - L4T_R28.2.1 - opencv 3.3.1 - installed from jetpack,
+Display without OpenGL, Display resolution - 1440x900@60Hz, exposure at manual (13.8ms)
+With V4L2 - USERPTR, With VideoCapture - MMAP
+________________________________________________________________________________________________________________
+                     |                                         |                                                |
+                     |	              With V4L2                |               With VideoCapture                |
+_____________________|_________________________________________|________________________________________________|
+                     |                   |                     |                      |                         |
+                     |    With display   |   Without display   |       With display   |      Without display    |
+_____________________|___________________|_____________________|______________________|_________________________|
+                     |                   |                     |                      |                         |
+VGA    (  640*480  ) |	       60        |         60          |           60         |           60            |
+HD720  ( 1280*720  ) |	    64 - 70      |         72          |        62 - 68       |           72            |
+HD1080 ( 1920*1080 ) |	    16 - 48*     |         72          |        28 - 36*      |           71            |
+4K     ( 3840*2160 ) |	    10 - 14      |         30          |        04 - 10       |           19            |
+13MP   ( 4224*3156 ) |	       7         |         10          |         5 - 6        |           10            |
+_____________________|___________________|_____________________|______________________|_________________________|
+
+* - Slower than value shown (too much stammering)
+** - Doesn't stammer as compared to V4L2
+
+
+---------
+Variant 2
+---------
+e-CAM130_CUTX1 - TX2 - L4T_R28.2.1 - opencv 3.3.1 - manually installed with optimization flags identified,
+Display without OpenGL, Display resolution - 1440x900@60Hz, exposure at manual (13.8ms)
+With V4L2 - USERPTR, With VideoCapture - MMAP
+
+________________________________________________________________________________________________________________
+                     |                                         |                                                |
+                     |	              With V4L2                |               With VideoCapture                |
+_____________________|_________________________________________|________________________________________________|  
+                     |                   |                     |                      |                         |
+                     |    With display   |   Without display   |       With display   |      Without display    |
+_____________________|___________________|_____________________|______________________|_________________________|
+                     |                   |                     |                      |                         |
+VGA    (  640*480  ) |	       60        |         60          |           60         |           60            |
+HD720  ( 1280*720  ) |	    68 - 72      |         72          |        64 - 68       |           72            |
+HD1080 ( 1920*1080 ) |	    18 - 47***   |         72          |        28 - 36       |           72            |
+4K     ( 3840*2160 ) |	    11 - 14      |         30          |        07 - 10       |           21            |
+13MP   ( 4224*3156 ) |	       7         |         10          |         5 - 6        |           10            |
+_____________________|___________________|_____________________|______________________|_________________________| 
+
+*** - Stammering seems "a bit" reduced
+
+
+---------
+Variant 3
+---------
+e-CAM130_CUTX1 - TX2 - L4T_R28.2.1 - opencv 3.3.1 - manually installed with optimization flags identified,
+Display with OpenGL, Display resolution - 1440x900@75Hz, exposure at manual (13.8ms),
+With V4L2 - USERPTR, With VideoCapture - MMAP, after running jetson-clocks.sh
+
+________________________________________________________________________________________________________________
+                     |                                         |                                                |
+                     |	              With V4L2                |               With VideoCapture                |
+_____________________|_________________________________________|________________________________________________|  
+                     |                      |                  |                      |                         |
+                     |    With display      |  Without display |       With display   |      Without display    |
+_____________________|______________________|__________________|______________________|_________________________|
+                     |                      |                  |                      |                         |
+VGA    (  640*480  ) |	        60          |      60          |           60         |           60            |
+HD720  ( 1280*720  ) |	        72          |      72          |           72         |           72            |
+HD1080 ( 1920*1080 ) |	        72 (67-72)  |      72          |           38         |           72            |
+4K     ( 3840*2160 ) |          25 (19-20)  |      30          |           15 (13)    |           22            |
+13MP^  ( 4224*3156 ) |       18-19 (15)     |      20          |           10 (9)     |           14            |
+_____________________|______________________|__________________|______________________|_________________________|
+
+Notes
+-----
+* Values in brackets are those observed by using cv::Mat directly for cv::imshow. The corresponding
+  un-bracketed value are those observed after uploading the frame to a cv::cuda::GpuMat and using
+  it for cv::imshow.
+
+* Using a cv::ogl::Buffer instead of cv::cuda::GpuMat also gave better frame rates for higher resolutions
+  when compared to using cv::Mat. Though, the performance was not better than using cv::cuda::GpuMat.
+  This observation was made in OpenCV 3.3.1.
+
+* Performance observation for Qt: Using Qt backend, the frame rate dropped a lot (even with OpenGL enabled)
+  when compared to it's Gtk counterpart when cv::Mat was directly used with cv::imshow. Uploading to
+  GpuMat gave better results (equalling the results of it's Gtk counterpart). This observation was made
+  for the resolution 1920*1080 with OpenCV 3.4.2.
+
+---------
+Variant 4
+---------
+e-CAM130_CUTX1 - TX2 - L4T_R28.2.1 - opencv 3.3.1 - manually installed with optimization flags identified,
+Display with OpenGL, Display resolution - 3840x2160@60Hz, exposure at manual (13.8ms),
+With V4L2 - USERPTR, With VideoCapture - MMAP, after running jetson-clocks.sh
+
+________________________________________________________________________________________________________________
+                     |                                         |                                                |
+                     |	              With V4L2                |               With VideoCapture                |
+_____________________|_________________________________________|________________________________________________|  
+                     |                      |                  |                      |                         |
+                     |    With display      |  Without display |       With display   |      Without display    |
+_____________________|______________________|__________________|______________________|_________________________|
+                     |                      |                  |                      |                         |
+4K     ( 3840*2160 ) |      23-26 (20)      |      30          |         15 (12)      |           21            |
+13MP^  ( 4224*3156 ) |      17-18 (14)      |      20          |         10 (9)       |           13            |
+_____________________|______________________|__________________|______________________|_________________________|
