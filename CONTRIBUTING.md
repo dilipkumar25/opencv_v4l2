@@ -19,7 +19,7 @@ waiver with respect to the entirety of your contributions.
 ## How do I make a contribution?
 
 Never made an open source contribution before? Wondering how contributions work 
-in the in our project? Here's a quick rundown!
+in our project? Here's a quick rundown!
 
 1. Find an issue that you are interested in addressing or a feature that you 
    would like to add.
@@ -49,9 +49,17 @@ in the in our project? Here's a quick rundown!
 13. Make changes to the pull request if the reviewing maintainer recommends them.
 14. Celebrate your success after your pull request is merged!
 
-## Where can I go for help?
+## Can I contribute without coding?
 
-If you need help, you can ask questions directly in our chat support channel available 
-on our website : <https://www.e-consystems.com>. You can also send in your queries via email to
-<techsupport@e-consystems.com>
+Sure. You are welcome to use and test the provided applications and library on your 
+device. If you face any issues, you can report them in the [opencv_v4l2 issues page][1].
+Make sure to provide as much information as possible. You can use [this link][2] to create
+a bug report.
 
+Or if you think this project can be improved upon by adding a new feature, you can create
+a feature request in the issues page using [this link][3].
+
+
+[1]:https://github.com/econsystems/opencv_v4l2/issues
+[2]:https://github.com/econsystems/opencv_v4l2/issues/new?template=bug_report.md
+[3]:https://github.com/econsystems/opencv_v4l2/issues/new?template=feature_request.md
