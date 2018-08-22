@@ -91,3 +91,8 @@ The above commands would generate multiple binaries with different characteristi
 9. `opencv-buildinfo`: Sample application that prints the build information of the OpenCV library
    being used. This application can be used to verify that the options selected during compilation were
    really enabled.
+
+#### Disclaimer
+1. This project is provided for the ease of use for developers.
+   **Anyone who uses this code and has a github account is welcome to 
+   contribute to it.** Please check the [CONTRIBUTING.md](CONTRIBUTING.md) file to know more.
