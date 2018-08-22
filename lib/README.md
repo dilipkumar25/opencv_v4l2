@@ -16,7 +16,7 @@ This library exposes some APIs which could be used to:
  * de-initialise the V4L2 device
 
 #### Building
-To build and install the library
+To build and install the library separately
 
 ```
 mkdir build && cd build
