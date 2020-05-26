@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 	 * a lot. It is essential for achieving better performance.
 	 */
 	#ifdef ENABLE_GL_DISPLAY
-	namedWindow("OpenCV V4L2", CV_WINDOW_OPENGL);
+	namedWindow("OpenCV V4L2", cv::WINDOW_OPENGL);
 	#else
 	namedWindow("OpenCV V4L2");
 	#endif
