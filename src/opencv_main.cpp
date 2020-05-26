@@ -73,9 +73,9 @@ int main(int argc, char **argv)
 
 	if(!cap.isOpened())  // check if we succeeded
 		return EXIT_FAILURE;
-	cap.set(CV_CAP_PROP_FRAME_WIDTH, width);
-	cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
-	cout << "Current resolution: Width: " << cap.get(CV_CAP_PROP_FRAME_WIDTH) << " Height: " << cap.get(CV_CAP_PROP_FRAME_HEIGHT) << '\n';
+	cap.set(cv::CAP_PROP_FRAME_WIDTH, width);
+	cap.set(cv::CAP_PROP_FRAME_HEIGHT, height);
+	cout << "Current resolution: Width: " << cap.get(cv::CAP_PROP_FRAME_WIDTH) << " Height: " << cap.get(cv::CAP_PROP_FRAME_HEIGHT) << '\n';
 
 #ifdef ENABLE_DISPLAY
 	/*
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 	 * a lot. It is essential for achieving better performance.
 	 */
 	#ifdef ENABLE_GL_DISPLAY
-	namedWindow("preview", CV_WINDOW_OPENGL);
+	namedWindow("preview", cv::WINDOW_OPENGL);
 	#else
 	namedWindow("preview");
 	#endif
